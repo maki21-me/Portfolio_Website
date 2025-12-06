@@ -1,6 +1,6 @@
 import React , {useState, useEffect} from "react"
-import LightMode from '../../assets/Images/WhiteMode.png';
-import DarkModeImg from '../../assets/Images/DarkMode.png';
+//import LightMode from '../../assets/Images/WhiteMode.png';
+//import DarkModeImg from '../../assets/Images/DarkMode.png';
 
 export default function DarkMode(){
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");

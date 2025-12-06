@@ -3,56 +3,64 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
 import "swiper/css";
+import Fanu from "../../assets/Images/TestimonialsImage/Fanuel.jpg";
+import Melye from "../../assets/Images/TestimonialsImage/Melye.jpg";
+import Jo from "../../assets/Images/TestimonialsImage/Jo.jpg";
+import Leul from "../../assets/Images/TestimonialsImage/Leul.jpg";
+import Yoni from "../../assets/Images/TestimonialsImage/Yoni.jpg";
+import Ruth from "../../assets/Images/TestimonialsImage/Ruth.jpg";
 
 export default function Testimonials() {
   const testimonials = [
-    {
-      name: "Najargi",
-      role: "Front-End Developer",
-      image: "/images/user1.jpg",
-      stars: 5,
-      feedback:
-        "Outstanding developer! Built a robust site with perfect functionality. Efficient and detail-oriented.",
-    },
-    {
-      name: "Bamlaku",
-      role: "Blockchain Developer",
-      image: "/images/user2.jpg",
-      stars: 5,
-      feedback:
-        "Creative and skilled! Produced a modern, user-friendly site that exceeded expectations. Great communication.",
-    },
-    {
-      name: "Meron",
-      role: "UI/UX Designer",
-      image: "/images/user3.jpg",
-      stars: 4,
-      feedback:
-        "A talented developer with great attention to detail. Delivers impressive results.",
-    },
-    {
-      name: "Abel",
-      role: "Software Engineer",
-      image: "/images/user4.jpg",
-      stars: 5,
-      feedback: "Amazing work! Delivered exactly what I wanted.",
-    },
-    {
-      name: "Saron",
-      role: "Project Manager",
-      image: "/images/user5.jpg",
-      stars: 4,
-      feedback:
-        "Very professional and on time. Great experience working together.",
-    },
-    {
-      name: "Dawit",
-      role: "Full-Stack Developer",
-      image: "/images/user6.jpg",
-      stars: 5,
-      feedback: "Highly recommended! Clean code and smooth functionality.",
-    },
-  ];
+  {
+    name: "Fanuel Almaw",
+    role: "Founder and CEO @ Askuala Link",
+    image: Fanu,
+    stars: 5,
+    feedback:
+      "Impressed by the portfolio! The projects showcase clean design and solid functionality. Very professional work.",
+  },
+  {
+    name: "Melat Tesfaye",
+    role: "SW Engineer|Programmer A2SVian-(Backed by Google twice)",
+    image: Melye,
+    stars: 5,
+    feedback:
+      "The portfolio is modern, well-structured, and highlights technical skills effectively. Clear attention to detail.",
+  },
+  {
+    name: "Yohannes Alemu",
+    role: "Full-Stack Developer & Mobile App Expert",
+    image: Jo,
+    stars: 4,
+    feedback:
+      "Portfolio demonstrates solid front-end and design skills. Projects are organized and visually appealing.",
+  },
+  {
+    name: "Yonas Tesera",
+    role: "SW & DevOps Engineer | Backend .CI/CD Cloud",
+    image: Yoni,
+    stars: 5,
+    feedback:
+      "Portfolio is professional and easy to navigate. Projects clearly show coding proficiency and creativity.",
+  },
+  {
+    name: "Leul Esubalew",
+    role: "Product Designer|Web Designer",
+    image: Leul,
+    stars: 4,
+    feedback:
+      "Well-designed portfolio with clear presentation of skills. Each project highlights both creativity and technical ability.",
+  },
+  {
+    name: "Ruth Gizat",
+    role: "SW Engineer | Fullstack Developer",
+    image: Ruth,
+    stars: 5,
+    feedback:
+      "Strong portfolio! Demonstrates clean code, well-thought-out design, and excellent implementation of projects.",
+  },
+];
 
   const swiperRef = useRef(null);
 

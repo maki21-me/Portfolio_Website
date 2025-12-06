@@ -12,14 +12,14 @@ export default function Projects() {
       description: "Fully responsive restaurant website with menu, booking, and animations.",
       tech: ["React", "Tailwind", "Framer Motion"],
       image: Restuerant,
-      link: "https://example.com"
+      link: "https://canoecafeandrestaurant.netlify.app/"
     },
     {
       title: "Portfolio Website",
       description: "Modern personal portfolio with dark mode and stunning UI animations.",
       tech: ["React", "Tailwind", "Dark Mode"],
       image: portfolio,
-      link: "https://example.com"
+      link: "https://meklite.netlify.app/"
     },
     {
       title: "French Poem Generator",
