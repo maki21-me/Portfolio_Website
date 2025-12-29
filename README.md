@@ -1,16 +1,68 @@
-# React + Vite
+# 🌐 Personal Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is my personal portfolio website built to showcase my skills, projects, and experience as a Software Engineering student and aspiring Full-Stack Developer.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
+🔗 https://YOUR_DEPLOYED_LINK_HERE
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- Modern and responsive UI  
+- Project showcase section  
+- Downloadable CV  
+- Clean and simple navigation  
+- Mobile and desktop friendly  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Technologies Used
+
+- HTML  
+- CSS  
+- JavaScript  
+- React  
+- Tailwind CSS  
+- Git & GitHub  
+
+---
+## 📁 Project Structure
+
+my-portfolio/
+├── src/
+│ ├── components/
+│ ├── assets/
+│ │ └── Files/
+│ │ └── cv.pdf
+│ ├── pages/
+│ └── App.jsx
+├── public/
+├── package.json
+└── README.md
+
+
+---
+
+## 👩‍💻 About Me
+
+- **Name:** Meklit Anteneh  
+- **Role:** Software Engineering Student  
+- **Focus:** Frontend & Full-Stack Development  
+
+---
+
+## 📫 Contact
+
+- **Email:** meklitanteneh58@gmail.com  
+- **GitHub:** https://github.com/maki21-me  
+
+---
+
+## 📄 License
+
+This project is for personal and educational purposes.
+
+
