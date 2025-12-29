@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { HiMenu, HiX } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import LogoImage from "../../assets/Images/logo.png";
@@ -16,118 +15,74 @@ export default function Navbar() {
     localStorage.getItem("theme") === "dark"
   );
 
-  // Apply the theme on initial render
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    document.documentElement.classList.toggle("dark", darkMode);
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  const toggleDarkMode = () => {
-    const newMode = !darkMode;
-    setDarkMode(newMode);
-    if (newMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  };
-
   return (
-    <header
-      className="fixed top-0 left-0 w-full z-50
-      bg-white/40 dark:bg-black/30 backdrop-blur-xl
-      shadow-lg border-b border-white/20 dark:border-zinc-700/30"
-    >
-      <div className="max-w-[1500px] mx-auto px-4 py-2 grid grid-cols-3 items-center">
-        
-        {/* LEFT: Logo + Dark Mode SVG */}
-        <div className="flex items-center ml-3">
-          {/* LOGO */}
-          <a href="/" className="flex flex-col items-center select-none mr-6">
-            <motion.img
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              src={LogoImage}
-              alt="logo"
-              className="w-7 h-7 object-contain"
-            />
-            <span className="text-xs font-semibold text-gray-900 dark:text-gray-200 mt-1">
-              Meklit
-            </span>
-          </a>
+    <header className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-black border-b border-gray-200 dark:border-zinc-700">
+      {/* ================= DESKTOP ================= */}
+      <div className="hidden md:flex items-center max-w-[1500px] mx-auto px-6 py-3 justify-between">
+        {/* LEFT: Logo */}
+        <Link to="/" className="flex flex-col items-center">
+          <img src={LogoImage} alt="logo" className="w-10 h-10" />
+          <span className="text-base font-semibold text-gray-900 dark:text-gray-200">
+            Meklit
+          </span>
+        </Link>
 
-          {/* DARK MODE BUTTON */}
-          <div className="ml-6">
-            <button
-              onClick={toggleDarkMode}
-              className="btn bg-gray-200 hover:bg-gray-300 dark:bg-zinc-700 dark:hover:bg-zinc-600 text-zinc-800 dark:text-zinc-200 px-4 py-2 rounded-md transition-colors"
-              aria-label="Switch to dark mode"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-sun"
+        {/* CENTER: Empty for spacing */}
+        <div />
+
+        {/* RIGHT: Links + Theme */}
+        <div className="flex items-center gap-6">
+          {/* Navbar Links */}
+          <nav className="flex gap-4 bg-white/80 dark:bg-zinc-800/80 px-5 py-2 rounded-full shadow-md">
+            {Menu.map((item) => (
+              <Link
+                key={item.id}
+                to={item.link}
+                className="px-4 py-2 text-[18px] font-semibold rounded-full
+                  text-gray-800 dark:text-gray-200
+                  hover:bg-gray-200 dark:hover:bg-zinc-700 transition"
               >
-                <circle cx="12" cy="12" r="4"></circle>
-                <path d="M12 2v2"></path>
-                <path d="M12 20v2"></path>
-                <path d="m4.93 4.93 1.41 1.41"></path>
-                <path d="m17.66 17.66 1.41 1.41"></path>
-                <path d="M2 12h2"></path>
-                <path d="M20 12h2"></path>
-                <path d="m6.34 17.66-1.41 1.41"></path>
-                <path d="m19.07 4.93-1.41 1.41"></path>
-              </svg>
-            </button>
-          </div>
+                {item.title}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Dark/Light Mode */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="bg-gray-200 dark:bg-zinc-700 px-3 py-2 rounded-md text-lg"
+          >
+            {darkMode ? "🌙" : "☀️"}
+          </button>
         </div>
+      </div>
 
-        {/* CENTER MENU (DESKTOP) */}
-        <motion.nav
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="
-            hidden md:flex justify-center items-center gap-5
-            bg-white/60 dark:bg-zinc-800/60 backdrop-blur-xl
-            px-10 py-3 rounded-full shadow-xl
-            border border-gray-300/40 dark:border-zinc-700/40
-          "
-        >
-          {Menu.map((menu) => (
-            <Link
-              key={menu.id}
-              to={menu.link}
-              className="
-                text-[18px] font-semibold px-5 py-2.5 rounded-full transition
-                text-gray-800 dark:text-gray-200
-                hover:bg-gray-200 dark:hover:bg-zinc-700
-                hover:text-black dark:hover:text-white
-                hover:scale-110
-              "
-            >
-              {menu.title}
-            </Link>
-          ))}
-        </motion.nav>
+      {/* ================= MOBILE ================= */}
+      <div className="md:hidden flex items-center justify-between px-4 py-3">
+        {/* Logo */}
+        <Link to="/" className="flex flex-col items-center">
+          <img src={LogoImage} alt="logo" className="w-7 h-7" />
+          <span className="text-xs font-semibold text-gray-900 dark:text-gray-200">
+            Meklit
+          </span>
+        </Link>
 
-        <div className="hidden md:block"></div>
+        {/* Right: Theme + Hamburger */}
+        <div className="flex items-center gap-3">
+          {/* Dark/Light Mode */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="bg-gray-200 dark:bg-zinc-700 px-3 py-2 rounded-md text-lg"
+          >
+            {darkMode ? "🌙" : "☀️"}
+          </button>
 
-        {/* MOBILE MENU BUTTON */}
-        <div className="md:hidden flex justify-end">
+          {/* Hamburger */}
           <button onClick={() => setOpen(!open)}>
             {open ? (
               <HiX className="text-3xl text-gray-900 dark:text-gray-100" />
@@ -138,32 +93,22 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MOBILE NAV */}
+      {/* ================= MOBILE MENU ================= */}
       {open && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="md:hidden bg-white/90 dark:bg-zinc-900/90 
-            p-4 space-y-4 shadow-lg rounded-xl backdrop-blur-xl"
-        >
-          {Menu.map((menu) => (
-            <Link
-              key={menu.id}
-              to={menu.link}
-              onClick={() => setOpen(false)}
-              className="
-                block w-full text-left px-4 py-2 rounded-lg text-base font-medium transition
-                text-gray-700 dark:text-gray-300
-                hover:bg-gray-200 dark:hover:bg-zinc-700
-                hover:text-black dark:hover:text-white
-                hover:scale-105
-              "
-            >
-              {menu.title}
-            </Link>
-          ))}
-        </motion.div>
+        <div className="md:hidden bg-white dark:bg-zinc-900 border-t border-gray-200 dark:border-zinc-700 shadow-lg">
+          <nav className="flex flex-col items-end px-6 py-6 gap-6">
+            {Menu.map((item) => (
+              <Link
+                key={item.id}
+                to={item.link}
+                onClick={() => setOpen(false)}
+                className="text-lg font-semibold text-gray-800 dark:text-gray-200"
+              >
+                {item.title}
+              </Link>
+            ))}
+          </nav>
+        </div>
       )}
     </header>
   );

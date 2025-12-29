@@ -10,28 +10,25 @@ export default function Projects() {
     {
       title: "Restaurant Website",
       description: "Fully responsive restaurant website with menu, booking, and animations.",
-      tech: ["React", "Tailwind", "Framer Motion"],
       image: Restuerant,
       link: "https://canoecafeandrestaurant.netlify.app/"
     },
     {
       title: "Portfolio Website",
       description: "Modern personal portfolio with dark mode and stunning UI animations.",
-      tech: ["React", "Tailwind", "Dark Mode"],
       image: portfolio,
       link: "https://meklite.netlify.app/"
     },
     {
       title: "French Poem Generator",
       description: "A web app that generates French poems using API integration, built with HTML and CSS for a clean and interactive user interface.",
-      tech: ["HTML", "CSS", "API"],
       image: Poem,
       link: "https://frenc-poem-generator.netlify.app/"
     },
     {
       title: "Book Store UI",
       description: "A sleek and interactive book store interface featuring search, filters, and smooth animations for browsing books.",
-      tech: ["React", "Tailwind"],
+
       image: Book,
       link: "https://book-store-b.netlify.app/"
     }
@@ -78,7 +75,7 @@ export default function Projects() {
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-2 text-xs mb-4">
+                {/* <div className="flex flex-wrap gap-2 text-xs mb-4">
                   {project.tech.map((t, i) => (
                     <span
                       key={i}
@@ -87,7 +84,7 @@ export default function Projects() {
                       {t}
                     </span>
                   ))}
-                </div>
+                </div> */}
 
                 <a
                   href={project.link}
@@ -104,7 +101,7 @@ export default function Projects() {
         {/* More Projects Button */}
         <div className="flex justify-center mt-10">
           <a
-            href="/projectsPage"
+            href="/ProjectsPage"
             className="px-8 py-3 bg-[#0b3d91] text-white rounded-full font-medium hover:bg-[#092d6b] duration-300"
           >
             More Projects

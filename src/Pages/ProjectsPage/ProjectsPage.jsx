@@ -101,7 +101,7 @@ export default function ProjectsPage() {
           transition={{ delay: 0.3, duration: 0.7 }}
           className="mt-4 text-gray-600 dark:text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto"
         >
-          Here are some of the projects I’ve worked on — combining creativity,
+          Here are some of the projects I’ve worked on combining creativity,
           clean code, and modern tools.
         </motion.p>
       </motion.div>

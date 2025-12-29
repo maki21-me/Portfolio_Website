@@ -5,13 +5,48 @@ import { SiTailwindcss, SiGithub } from "react-icons/si";
 
 export default function Skills() {
   const skills = [
-    { name: "HTML5", icon: <FaHtml5 size={28} className="text-[#E34F26]" />, description: "User Interface", level: 90 },
-    { name: "CSS3", icon: <FaCss3Alt size={28} className="text-[#1572B6]" />, description: "User Interface", level: 70 },
-    { name: "JavaScript", icon: <FaJsSquare size={28} className="text-[#F7DF1E]" />, description: "Interaction", level: 80 },
-    { name: "React", icon: <FaReact size={28} className="text-[#61DAFB]" />, description: "Framework", level: 60 },
-    { name: "Tailwind CSS", icon: <SiTailwindcss size={28} className="text-[#38B2AC]" />, description: "User Interface", level: 50 },
-    { name: "Git", icon: <FaGitAlt size={28} className="text-[#F05032]" />, description: "Version Control", level: 75 },
-    { name: "GitHub", icon: <SiGithub size={28} className="text-black dark:text-white" />, description: "Version Control", level: 85 },
+    {
+      name: "HTML5",
+      icon: <FaHtml5 size={28} className="text-[#E34F26]" />,
+      description: "User Interface",
+      level: 90,
+    },
+    {
+      name: "CSS3",
+      icon: <FaCss3Alt size={28} className="text-[#1572B6]" />,
+      description: "User Interface",
+      level: 70,
+    },
+    {
+      name: "JavaScript",
+      icon: <FaJsSquare size={28} className="text-[#F7DF1E]" />,
+      description: "Interaction",
+      level: 80,
+    },
+    {
+      name: "React",
+      icon: <FaReact size={28} className="text-[#61DAFB]" />,
+      description: "Framework",
+      level: 60,
+    },
+    {
+      name: "Tailwind CSS",
+      icon: <SiTailwindcss size={28} className="text-[#38B2AC]" />,
+      description: "User Interface",
+      level: 50,
+    },
+    {
+      name: "Git",
+      icon: <FaGitAlt size={28} className="text-[#F05032]" />,
+      description: "Version Control",
+      level: 75,
+    },
+    {
+      name: "GitHub",
+      icon: <SiGithub size={28} className="text-black dark:text-white" />,
+      description: "Version Control",
+      level: 85,
+    },
   ];
 
   return (
@@ -37,8 +72,8 @@ export default function Skills() {
           </p>
         </motion.div>
 
-        {/* Skills – 4 per row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
+        {/* Skills Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
           {skills.map((skill, index) => (
             <motion.div
               key={index}

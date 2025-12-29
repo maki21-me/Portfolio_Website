@@ -1,92 +1,100 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaInstagram, FaLinkedin, FaGithub, FaArrowUp } from "react-icons/fa";
-import { motion } from "framer-motion";
-import LogoImage from "../../assets/Images/logo.png"
+import { motion, AnimatePresence } from "framer-motion";
+import LogoImage from "../../assets/Images/logo.png";
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const [showArrow, setShowArrow] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setShowArrow(window.scrollY > 300);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="bg-gradient-to-b from-[#D6D8DB] to-[#E8E9EB] dark:from-zinc-700 dark:to-zinc-800 py-16 relative">
-
+    <footer className="relative bg-gray-50 dark:bg-zinc-900 py-12"> {/* reduced vertical padding */}
       <div className="max-w-6xl mx-auto px-6">
+
         {/* Connect Section */}
-        <div className="mb-10">
-          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-6">
+        <div className="mb-10 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6">
             Connect with me
           </h2>
-
-         {/* Outline-style social icons */}
-<div className="flex items-center space-x-8 text-3xl text-gray-600 dark:text-gray-300">
-
-  <a
-    href="https://github.com/maki21-me"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <FaGithub className="hover:text-black dark:hover:text-white transition cursor-pointer" />
-  </a>
-
-  <a
-    href="https://www.linkedin.com/in/meklit-anteneh-87454b360"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <FaLinkedin className="hover:text-blue-600 transition cursor-pointer" />
-  </a>
-
-  <a
-    href="https://www.instagram.com/meklit_anteneh/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <FaInstagram className="hover:text-pink-500 transition cursor-pointer" />
-  </a>
-
-</div>
-
+          <div className="flex justify-center items-center gap-6">
+            {[{
+              href: "https://github.com/maki21-me",
+              icon: <FaGithub className="text-gray-800 dark:text-gray-200" />,
+              hover: "hover:text-black dark:hover:text-white"
+            },{
+              href: "https://www.linkedin.com/in/meklit-anteneh-87454b360",
+              icon: <FaLinkedin className="text-blue-600" />,
+              hover: "hover:text-blue-800"
+            },{
+              href: "https://www.instagram.com/meklit_anteneh/",
+              icon: <FaInstagram className="text-pink-500" />,
+              hover: "hover:text-pink-700"
+            }].map((item, idx) => (
+              <motion.a
+                key={idx}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.2 }}
+                className={`w-16 h-16 flex items-center justify-center rounded-full bg-white dark:bg-zinc-800 shadow-md transition ${item.hover}`} // increased size
+              >
+                <span className="text-2xl">{item.icon}</span> {/* bigger icons */}
+              </motion.a>
+            ))}
+          </div>
         </div>
 
-        {/* Separator line */}
-        <div className="w-full border-t border-gray-400 dark:border-gray-600 my-10"></div>
+        {/* Separator */}
+        <div className="w-full border-t border-gray-300 dark:border-gray-700 mb-6"></div> {/* reduced margin */}
 
         {/* Bottom Row */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-          
-          <div className="flex items-center gap-8">
-  <motion.div
-    initial={{ opacity: 0, scale: 0.8 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.6 }}
-    className="flex flex-col items-center text-center cursor-pointer select-none"
-  >
-    <img src={LogoImage} alt="logo" className="w-8 h-8 object-contain" />
-    <span className="text-sm font-semibold text-gray-900 dark:text-gray-200">
-      Meklit
-    </span>
-  </motion.div>
-  </div>
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-2 cursor-pointer select-none"
+          >
+            <img src={LogoImage} alt="logo" className="w-9 h-9 object-contain" />
+            <span className="font-semibold text-gray-900 dark:text-gray-200 text-base">
+              Meklit
+            </span>
+          </motion.div>
 
           {/* Copyright */}
-          <p className="text-gray-700 dark:text-gray-400 text-sm">
+          <p className="text-gray-600 dark:text-gray-400 text-sm text-center md:text-right">
             © 2025 Meklit Anteneh. All rights reserved.
           </p>
         </div>
       </div>
 
-      {/* Up Arrow (separate, on the far-right) */}
-      <button
-        onClick={scrollToTop}
-        className="absolute right-8 bottom-8 w-11 h-11 flex items-center justify-center 
-                   border-2 border-gray-600 dark:border-gray-400 text-gray-700 dark:text-gray-300 
-                   rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-        aria-label="Scroll to top"
-      >
-        <FaArrowUp className="text-lg" />
-      </button>
-      
+      {/* Scroll To Top Arrow */}
+      <AnimatePresence>
+        {showArrow && (
+          <motion.button
+            onClick={scrollToTop}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="fixed right-6 bottom-6 w-12 h-12 flex items-center justify-center 
+                       border-2 border-gray-600 dark:border-gray-400 
+                       text-gray-700 dark:text-gray-300 
+                       rounded-full hover:bg-gray-200 dark:hover:bg-zinc-700 shadow-lg transition"
+            aria-label="Scroll to top"
+          >
+            <FaArrowUp className="text-lg" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </footer>
   );
 }
