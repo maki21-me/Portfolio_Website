@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ProfileLight from "../../assets/Images/LightMode.jpg";
 import ProfileDark from "../../assets/Images/Dark.png";
-import Resume from "../../assets/Files/cv.pdf";
+import Resume from "../../assets/Files/cv1.pdf";
 
 export default function Home() {
   return (
