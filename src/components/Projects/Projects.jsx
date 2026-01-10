@@ -4,6 +4,8 @@ import  Restuerant from "../../assets/Images/ProjectImage/restuerant.png"
 import Book from "../../assets/Images/ProjectImage/book.png"
 import portfolio from "../../assets/Images/ProjectImage/portfolio.png"
 import Poem from "../../assets/Images/ProjectImage/poem.png"
+import { Link } from "react-router-dom";
+
 
 export default function Projects() {
   const mainProjects = [
@@ -100,12 +102,13 @@ export default function Projects() {
 
         {/* More Projects Button */}
         <div className="flex justify-center mt-10">
-          <a
-            href="/ProjectsPage"
-            className="px-8 py-3 bg-[#0b3d91] text-white rounded-full font-medium hover:bg-[#092d6b] duration-300"
-          >
-            More Projects
-          </a>
+      <Link
+                 to="/projectsPage"
+                 className="px-8 py-3 bg-[#0b3d91] text-white rounded-full font-medium hover:bg-[#092d6b] duration-300"
+             >
+                    More Projects
+               </Link>
+
         </div>
       </div>
     </section>
