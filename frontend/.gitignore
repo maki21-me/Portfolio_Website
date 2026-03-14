@@ -1,0 +1,7 @@
+# Environment variables
+.env
+Contact-Backend/.env
+
+# Node modules
+node_modules/
+Contact-Backend/node_modules/
