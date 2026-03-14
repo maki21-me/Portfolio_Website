@@ -25,15 +25,15 @@ export default function Footer() {
     { icon: <FiGithub />, link: "https://github.com/maki21-me" },
     { icon: <FiLinkedin />, link: "https://www.linkedin.com/in/meklit-anteneh-87454b360" },
     { icon: <FiTwitter />, link: "https://twitter.com" },
-    { icon: <FiMail />, link: "mailto:hello@johndoe.com" },
+    { icon: <FiMail />, link: "mailto:meklitanteneh58@gmail.com" },
   ];
 
   return (
     <footer className="relative bg-[#030014] dark:bg-[#030014] text-white pt-20 pb-10 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-10">
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
-          
+
           {/* Column 1: Branding */}
           <div className="space-y-6">
             <Link to="/" className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent tracking-tight inline-block">
@@ -51,14 +51,14 @@ export default function Footer() {
               {quickLinks.map((item, idx) => (
                 <li key={idx}>
                   {item.link.startsWith("#") ? (
-                    <a 
+                    <a
                       href={item.link}
                       className="text-zinc-400 hover:text-white transition-colors text-[17px] font-medium"
                     >
                       {item.title}
                     </a>
                   ) : (
-                    <Link 
+                    <Link
                       to={item.link}
                       className="text-zinc-400 hover:text-white transition-colors text-[17px] font-medium"
                     >
@@ -99,7 +99,6 @@ export default function Footer() {
             © {new Date().getFullYear()} Meklit Anteneh. All rights reserved.
           </p>
         </div>
-
       </div>
 
       {/* Scroll To Top Arrow */}

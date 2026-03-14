@@ -42,6 +42,7 @@ const verifyToken = require("./middleware/auth");
 // Register Routes
 app.use("/api", authRoutes); // /api/login, /api/health
 app.use("/api/projects", projectRoutes);
+console.log("📂 Project Routes Registered");
 app.use("/api/messages", messageRoutes);
 
 // Ensure uploads directory exists

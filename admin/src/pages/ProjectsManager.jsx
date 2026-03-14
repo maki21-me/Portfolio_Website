@@ -46,16 +46,16 @@ export default function ProjectsManager() {
       {/* Header Area */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/5 pb-8">
         <div>
-          <h2 className="text-4xl font-black bg-gradient-to-r from-white via-zinc-400 to-zinc-600 bg-clip-text text-transparent">Project Repository</h2>
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-white via-zinc-400 to-zinc-600 bg-clip-text text-transparent">Project Repository</h2>
           <p className="text-zinc-500 text-sm mt-2 font-medium">Manage your portfolio inventory and determine homepage visibility.</p>
         </div>
         <div className="flex items-center gap-4">
-          <div className="px-5 py-2.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-[10px] font-black uppercase text-blue-400 tracking-[0.2em]">
+          <div className="px-5 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-[9px] font-bold uppercase text-blue-400 tracking-widest">
             System Active
           </div>
           <button 
             onClick={() => navigate('/projects/new')}
-            className="group flex items-center gap-3 bg-white text-black px-8 py-4 rounded-2xl font-black uppercase text-xs hover:bg-blue-600 hover:text-white transition-all shadow-xl hover:shadow-blue-600/20"
+            className="group flex items-center gap-3 bg-white text-black px-7 py-3.5 rounded-2xl font-bold uppercase text-xs hover:bg-blue-600 hover:text-white transition-all shadow-xl hover:shadow-blue-600/20"
           >
             <FiPlus className="text-lg group-hover:rotate-90 transition-transform" /> 
             Add New Project
@@ -87,7 +87,7 @@ export default function ProjectsManager() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-white/[0.02] border-b border-white/5 text-zinc-500 text-[10px] uppercase tracking-widest font-black">
+                <tr className="bg-white/[0.02] border-b border-white/5 text-zinc-500 text-[9px] uppercase tracking-widest font-bold">
                   <th className="p-8">Details & Identity</th>
                   <th className="p-8 text-center">Category</th>
                   <th className="p-8 text-center">Visibility</th>
@@ -107,7 +107,7 @@ export default function ProjectsManager() {
                           )}
                         </div>
                         <div className="min-w-0">
-                          <div className="font-black text-white text-xl tracking-tight leading-none mb-2">{project.title}</div>
+                          <div className="font-bold text-white text-lg tracking-tight leading-none mb-2">{project.title}</div>
                           <div className="text-zinc-500 text-xs font-medium line-clamp-1 max-w-sm">{project.description}</div>
                         </div>
                       </div>
@@ -147,7 +147,7 @@ export default function ProjectsManager() {
                 ))}
                 {projects.length === 0 && (
                   <tr><td colSpan="4" className="p-32 text-center">
-                    <p className="text-zinc-700 font-black uppercase tracking-[0.5em] text-sm animate-pulse">Void Inventory Detected</p>
+                    <p className="text-zinc-700 font-bold uppercase tracking-widest text-xs animate-pulse">Inventory Empty</p>
                     <p className="text-zinc-800 text-xs mt-4 font-bold italic">Initialize your first piece using the add button</p>
                   </td></tr>
                 )}

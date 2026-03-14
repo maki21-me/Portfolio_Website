@@ -10,7 +10,7 @@ export default function Contact() {
   const sendEmail = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     const formData = {
       name: form.current.user_name.value,
       email: form.current.user_email.value,
@@ -24,7 +24,7 @@ export default function Contact() {
         body: JSON.stringify(formData)
       });
       const data = await res.json();
-      
+
       setLoading(false);
       if (data.success) {
         setDone(true);
@@ -44,19 +44,19 @@ export default function Contact() {
     {
       icon: <FiMail className="text-2xl" />,
       label: "Email",
-      value: "hello@johndoe.com",
-      link: "mailto:hello@johndoe.com"
+      value: "meklitanteneh58@gmail.com",
+      link: "mailto:meklitanteneh58@gmail.com"
     },
     {
       icon: <FiPhone className="text-2xl" />,
       label: "Phone",
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567"
+      value: "+251 968327855",
+      link: "tel:+251 968327855"
     },
     {
       icon: <FiMapPin className="text-2xl" />,
       label: "Location",
-      value: "San Francisco, CA",
+      value: "Addis Abeba, Ethiopia",
       link: "https://maps.google.com"
     }
   ];
@@ -67,7 +67,7 @@ export default function Contact() {
       <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-100/30 dark:bg-purple-900/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-10 lg:px-16 relative z-10">
-        
+
         {/* SECTION HEADER */}
         <div className="text-center mb-20">
           <motion.div
@@ -87,7 +87,7 @@ export default function Contact() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
-          
+
           {/* LEFT: Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}

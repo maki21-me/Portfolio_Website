@@ -15,10 +15,10 @@ export default function Home() {
 
         {/* PROFILE CIRCLE */}
         <motion.div
-           initial={{ opacity: 0, scale: 0.5 }}
-           animate={{ opacity: 1, scale: 1 }}
-           transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-           className="relative w-56 h-56 mb-6 flex items-center justify-center mt-6 md:mt-10"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
+          className="relative w-56 h-56 mb-6 flex items-center justify-center mt-6 md:mt-10"
         >
 
           <div className="relative w-52 h-52 rounded-full border-4 border-white dark:border-blue-900/30 overflow-hidden shadow-2xl shadow-blue-500/20 z-10">
@@ -65,7 +65,7 @@ export default function Home() {
           Hi, I'm{" "}
           <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             <ReactTyped
-              strings={["Meklit Anteneh", "a Developer", "a Designer"]}
+              strings={["Meklit Anteneh", "a  Software Engineer", "a Developer"]}
               typeSpeed={80}
               backSpeed={50}
               loop
@@ -91,17 +91,18 @@ export default function Home() {
           transition={{ delay: 0.6 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8"
         >
-          <Link
-            to="/contact"
-            className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/30 hover:scale-105 transition-transform"
+          <a
+            href="#contact"
+            className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-500/30 hover:scale-105 transition-transform text-center"
           >
             Get in Touch
-          </Link>
+          </a>
           <a
-            href="#projects"
-            className="w-full sm:w-auto px-8 py-3.5 bg-white dark:bg-blue-900/10 text-gray-800 dark:text-blue-100 font-bold rounded-2xl border border-gray-200 dark:border-blue-800/30 hover:bg-gray-50 dark:hover:bg-blue-800/20 transition-all font-medium"
+            href={Resume}
+            download="Meklit_Anteneh_Resume.pdf"
+            className="w-full sm:w-auto px-8 py-3.5 bg-white dark:bg-blue-900/10 text-gray-800 dark:text-blue-100 font-bold rounded-2xl border border-gray-200 dark:border-blue-800/30 hover:bg-gray-50 dark:hover:bg-blue-800/20 transition-all font-medium text-center"
           >
-            View Work
+            My Resume
           </a>
         </motion.div>
 
@@ -113,9 +114,9 @@ export default function Home() {
           className="flex items-center justify-center gap-4"
         >
           {[
-            { icon: <FiGithub size={22} />, link: "https://github.com", label: "GitHub" },
-            { icon: <FiLinkedin size={22} />, link: "https://linkedin.com", label: "LinkedIn" },
-            { icon: <FiMail size={22} />, link: "mailto:example@gmail.com", label: "Email" }
+            { icon: <FiGithub size={22} />, link: "https://github.com/maki21-me", label: "GitHub" },
+            { icon: <FiLinkedin size={22} />, link: "https://www.linkedin.com/in/meklit-anteneh-87454b360/", label: "LinkedIn" },
+            { icon: <FiMail size={22} />, link: "meklitanteneh58@gmail.com", label: "Email" }
           ].map((social, i) => (
             <a
               key={i}

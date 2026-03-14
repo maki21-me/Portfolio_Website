@@ -146,7 +146,7 @@ export default function ProjectsPage() {
                 <h3 className="text-2xl font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-zinc-500 dark:text-zinc-400 text-[17px] leading-relaxed font-medium line-clamp-2">
+                <p className="text-zinc-500 dark:text-zinc-400 text-[17px] leading-relaxed font-medium">
                   {project.description}
                 </p>
                 {project.techStack && project.techStack.length > 0 && (

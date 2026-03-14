@@ -17,7 +17,7 @@ export default function Projects() {
         if (Array.isArray(data)) {
           // Filter to only show featured projects on the home page
           const featured = data.filter(p => p.isFeatured);
-          setFeaturedProjects(featured.slice(0, 6));
+          setFeaturedProjects(featured);
         } else {
           console.error("API returned non-array data:", data);
         }
@@ -94,7 +94,7 @@ export default function Projects() {
                 <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-2 line-clamp-1">
                   {project.title}
                 </h3>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4 line-clamp-2 leading-relaxed">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed">
                   {project.description}
                 </p>
                 

@@ -70,7 +70,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="py-16 bg-transparent dark:bg-transparent transition-colors duration-500">
+    <section id="testimonials" className="pt-8 pb-16 bg-transparent dark:bg-transparent transition-colors duration-500">
       <div className="w-full max-w-[1400px] mx-auto px-6 lg:px-8">
 
         {/* SECTION HEADER - Matching Projects/Skills style */}

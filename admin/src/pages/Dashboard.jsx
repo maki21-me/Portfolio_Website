@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { FiFolder, FiMessageSquare, FiTrendingUp, FiActivity } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+import { FiFolder, FiMessageSquare, FiTrendingUp, FiActivity, FiArrowRight } from 'react-icons/fi';
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const [stats, setStats] = useState({ projects: 0, messages: 0 });
 
   useEffect(() => {
@@ -103,7 +105,10 @@ export default function Dashboard() {
           <h3 className="text-lg font-bold text-white mb-6">Quick Access</h3>
           
           <div className="w-full space-y-3 pr-1">
-            <button className="w-full p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between group hover:bg-white/10 transition-all text-left">
+            <button 
+              onClick={() => navigate('/projects/new')}
+              className="w-full p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between group hover:bg-white/10 transition-all text-left"
+            >
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-blue-600/20 border border-blue-500/20 text-blue-500">
                   <FiFolder className="text-lg" />
@@ -113,9 +118,13 @@ export default function Dashboard() {
                   <p className="text-[10px] text-zinc-500 line-clamp-1">Create entry</p>
                 </div>
               </div>
+              <FiArrowRight className="text-zinc-600 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
             </button>
             
-            <button className="w-full p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between group hover:bg-white/10 transition-all text-left">
+            <button 
+              onClick={() => navigate('/messages')}
+              className="w-full p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between group hover:bg-white/10 transition-all text-left"
+            >
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-purple-600/20 border border-purple-500/20 text-purple-500">
                   <FiMessageSquare className="text-lg" />
@@ -125,18 +134,23 @@ export default function Dashboard() {
                   <p className="text-[10px] text-zinc-500 line-clamp-1">Check inbox</p>
                 </div>
               </div>
+              <FiArrowRight className="text-zinc-600 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
             </button>
 
-            <button className="w-full p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between group hover:bg-white/10 transition-all text-left">
+            <button 
+              onClick={() => window.location.reload()}
+              className="w-full p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between group hover:bg-white/10 transition-all text-left"
+            >
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-lg bg-green-600/20 border border-green-500/20 text-green-500">
                   <FiActivity className="text-lg" />
                 </div>
                 <div>
-                  <p className="text-white text-sm font-bold">Stats</p>
-                  <p className="text-[10px] text-zinc-500 line-clamp-1">Metrics</p>
+                  <p className="text-white text-sm font-bold">Refresh Stats</p>
+                  <p className="text-[10px] text-zinc-500 line-clamp-1">Update metrics</p>
                 </div>
               </div>
+              <FiArrowRight className="text-zinc-600 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
             </button>
           </div>
         </div>

@@ -3,7 +3,6 @@ const router = express.Router();
 const Project = require("../models/Project");
 const verifyToken = require("../middleware/auth");
 
-
 // Get all projects
 router.get("/", async (req, res) => {
   console.log("🔍 Fetching all projects...");
@@ -14,6 +13,24 @@ router.get("/", async (req, res) => {
     res.json(mappedProjects);
   } catch (error) {
     console.error("❌ Error in GET /api/projects:", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Get a single project
+router.get("/:id", async (req, res) => {
+  console.log(`🎯 Request received for project ID: ${req.params.id}`);
+  try {
+    const project = await Project.findByPk(req.params.id);
+    if (project) {
+      console.log(`✅ Project found: ${project.title}`);
+      res.json({ ...project.toJSON(), _id: project.id });
+    } else {
+      console.warn(`⚠️ Project with ID ${req.params.id} not found in database`);
+      res.status(404).json({ message: "Project not found" });
+    }
+  } catch (error) {
+    console.error(`❌ Error fetching project ${req.params.id}:`, error);
     res.status(500).json({ message: error.message });
   }
 });

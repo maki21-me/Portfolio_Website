@@ -14,6 +14,15 @@ import "aos/dist/aos.css";
 import Contact from "./components/sections/Contact/Contact";
 import ProjectsPage from "./pages/ProjectsPage/ProjectsPage";
 import FloatingBackground from "./components/layout/FloatingBackground";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function AppContent() {
   return (
     <div className="bg-[#f8f9ff] dark:bg-[#030014] transition-colors duration-500 min-h-screen overflow-x-hidden relative flex flex-col">
@@ -61,6 +70,7 @@ export default function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <AppContent />
     </Router>
   );

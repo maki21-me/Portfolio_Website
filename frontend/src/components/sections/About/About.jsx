@@ -34,11 +34,11 @@ export default function About() {
   return (
     <section id="about" className="py-16 bg-transparent dark:bg-transparent transition-colors duration-500">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        
+
         <div className="flex flex-col lg:flex-row items-center gap-20">
-          
+
           {/* LEFT: Image Column */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
@@ -46,9 +46,9 @@ export default function About() {
             className="w-full lg:w-1/2 relative group"
           >
             <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
-              <img 
-                src={WorkspaceImg} 
-                alt="Workspace" 
+              <img
+                src={WorkspaceImg}
+                alt="Workspace"
                 className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
               />
             </div>
@@ -64,18 +64,18 @@ export default function About() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-            <div className="mb-6">
-              <h2 className="text-3xl lg:text-4xl font-bold text-zinc-900 dark:text-white mb-2">
-                About Me
-              </h2>
-              <div className="w-20 h-1.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full" />
-            </div>
+              <div className="mb-6">
+                <h2 className="text-3xl lg:text-4xl font-bold text-zinc-900 dark:text-white mb-2">
+                  About Me
+                </h2>
+                <div className="w-20 h-1.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full" />
+              </div>
               <p className="text-lg text-zinc-600 dark:text-zinc-300 mb-6 leading-relaxed">
-                I'm a full-stack developer and designer with over 5 years of experience building web applications. 
+                I'm a full-stack developer and designer with over 2 years of experience building web applications.
                 I love turning complex problems into simple, beautiful, and intuitive designs.
               </p>
               <p className="text-lg text-zinc-600 dark:text-zinc-300 mb-10 leading-relaxed font-light">
-                When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, 
+                When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects,
                 or sharing knowledge with the developer community.
               </p>
             </motion.div>

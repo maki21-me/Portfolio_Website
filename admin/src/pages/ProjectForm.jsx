@@ -26,12 +26,13 @@ export default function ProjectForm() {
       const fetchProject = async () => {
         setFetching(true);
         try {
-          const res = await fetch(`http://localhost:5001/api/projects`, {
+          const res = await fetch(`http://localhost:5001/api/projects/${id}`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
-          const data = await res.json();
-          const project = data.find(p => p._id === id);
-          if (project) {
+          const project = await res.json();
+          
+          if (res.ok && project && !project.message) {
+            console.log("✅ Project data loaded:", project.title);
             setFormData({
               title: project.title || '',
               description: project.description || '',
@@ -42,6 +43,8 @@ export default function ProjectForm() {
               techStack: Array.isArray(project.techStack) ? project.techStack.join(', ') : '',
               isFeatured: !!project.isFeatured
             });
+          } else {
+            console.error("❌ Failed to load project:", project.message || "Unknown error");
           }
         } catch (error) {
           console.error('Error fetching project:', error);
@@ -124,8 +127,8 @@ export default function ProjectForm() {
             <FiArrowLeft size={20} />
           </Link>
           <div>
-            <h2 className="text-3xl font-black text-white tracking-tight">{id ? 'Update Project Core' : 'Initialize New Construct'}</h2>
-            <p className="text-blue-500 text-[10px] font-black uppercase tracking-[0.4em] mt-1">{id ? 'Global ID: ' + id.slice(-8) : 'Manual Input Protocol'}</p>
+            <h2 className="text-2xl font-bold text-white tracking-tight">{id ? 'Update Project' : 'Add New Project'}</h2>
+            <p className="text-blue-500 text-[9px] font-bold uppercase tracking-[0.3em] mt-1">{id ? 'ID: ' + String(id).slice(-8) : 'New Entry'}</p>
           </div>
         </div>
       </div>
@@ -138,63 +141,63 @@ export default function ProjectForm() {
             {/* Left Column */}
             <div className="space-y-10">
               <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600 ml-1">Asset Designation</label>
+                <label className="text-[9px] font-bold uppercase tracking-widest text-zinc-500 ml-1">Project Title</label>
                 <input 
                   required 
                   type="text" 
                   value={formData.title} 
                   onChange={e => setFormData({...formData, title: e.target.value})} 
-                  className="w-full p-6 border border-white/5 rounded-3xl bg-black/40 text-white focus:ring-4 focus:ring-blue-600/20 outline-none transition-all placeholder:text-zinc-800 font-bold text-2xl" 
+                  className="w-full p-5 border border-white/5 rounded-2xl bg-black/40 text-white focus:ring-2 focus:ring-blue-600/20 outline-none transition-all placeholder:text-zinc-800 font-bold text-xl" 
                   placeholder="The Project Name" 
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600 ml-1">Classification</label>
+                  <label className="text-[9px] font-bold uppercase tracking-widest text-zinc-500 ml-1">Category</label>
                   <select 
                     value={formData.category} 
                     onChange={e => setFormData({...formData, category: e.target.value})} 
-                    className="w-full p-6 border border-white/5 rounded-3xl bg-black/40 text-white focus:ring-2 focus:ring-blue-600/30 outline-none transition-all font-bold text-sm [&>option]:bg-[#0f1021]"
+                    className="w-full p-5 border border-white/5 rounded-2xl bg-black/40 text-white focus:ring-2 focus:ring-blue-600/30 outline-none transition-all font-bold text-sm [&>option]:bg-[#0f1021]"
                   >
                     {categories.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600 ml-1">Placement Priority</label>
-                  <div className="flex bg-black/40 p-1.5 rounded-3xl border border-white/5 h-[76px]">
+                  <label className="text-[9px] font-bold uppercase tracking-widest text-zinc-500 ml-1">Visibility</label>
+                  <div className="flex bg-black/40 p-1 rounded-2xl border border-white/5 h-[64px]">
                     <button 
                       type="button" 
                       onClick={() => setFormData({...formData, isFeatured: false})}
-                      className={`flex-1 rounded-2xl text-[10px] font-black uppercase transition-all tracking-widest ${!formData.isFeatured ? 'bg-zinc-700 text-white shadow-2xl' : 'text-zinc-600 hover:text-zinc-400'}`}
+                      className={`flex-1 rounded-xl text-[9px] font-bold uppercase transition-all tracking-wider ${!formData.isFeatured ? 'bg-zinc-700 text-white shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}
                     >
                       Library
                     </button>
                     <button 
                       type="button" 
                       onClick={() => setFormData({...formData, isFeatured: true})}
-                      className={`flex-1 rounded-2xl text-[10px] font-black uppercase transition-all tracking-widest ${formData.isFeatured ? 'bg-blue-600 text-white shadow-2xl' : 'text-zinc-600 hover:text-zinc-400'}`}
+                      className={`flex-1 rounded-xl text-[9px] font-bold uppercase transition-all tracking-wider ${formData.isFeatured ? 'bg-blue-600 text-white shadow-lg' : 'text-zinc-600 hover:text-zinc-400'}`}
                     >
-                      Home Section
+                      Featured
                     </button>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600 ml-1">Deep Architecture Description</label>
+                <label className="text-[9px] font-bold uppercase tracking-widest text-zinc-500 ml-1">Project Description</label>
                 <textarea 
                   required 
                   rows={6} 
                   value={formData.description} 
                   onChange={e => setFormData({...formData, description: e.target.value})} 
-                  className="w-full p-6 border border-white/5 rounded-3xl bg-black/40 text-white focus:ring-4 focus:ring-blue-600/20 outline-none transition-all resize-none placeholder:text-zinc-800 font-medium text-base leading-relaxed" 
+                  className="w-full p-5 border border-white/5 rounded-2xl bg-black/40 text-white focus:ring-2 focus:ring-blue-600/20 outline-none transition-all resize-none placeholder:text-zinc-800 font-medium text-sm leading-relaxed" 
                   placeholder="Explain the technical challenges..." 
                 />
               </div>
 
               <div className="space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600 ml-1">Tech Stack (comma separated)</label>
+                <label className="text-[9px] font-bold uppercase tracking-widest text-zinc-500 ml-1">Tech Stack</label>
                 <input 
                   type="text" 
                   value={formData.techStack} 
@@ -210,7 +213,7 @@ export default function ProjectForm() {
               <div className="bg-white/[0.02] border border-white/5 rounded-[40px] p-10 space-y-8">
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-500">Visual Core</h4>
+                    <h4 className="text-[9px] font-bold uppercase tracking-widest text-blue-500">Project Image</h4>
                     <span className="text-[9px] text-zinc-600 font-bold uppercase italic">Recommended: 1200 x 800px</span>
                   </div>
                   
@@ -219,7 +222,7 @@ export default function ProjectForm() {
                       <input type="file" accept="image/*" onChange={e => setImageFile(e.target.files[0])} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
                       <div className="p-10 flex flex-col items-center justify-center gap-4 text-zinc-600 group-hover:text-blue-400 transition-colors">
                         <FiPlus size={40} className="group-hover:rotate-90 transition-transform duration-500" />
-                        <div className="text-xs font-black uppercase tracking-widest text-center">{imageFile ? imageFile.name.slice(0, 30) : 'Click to Upload Media'}</div>
+                        <div className="text-[10px] font-bold uppercase tracking-widest text-center">{imageFile ? imageFile.name.slice(0, 30) : 'Click to Upload Media'}</div>
                       </div>
                       {(imageFile || formData.imageUrl) && (
                         <div className="absolute inset-0 pointer-events-none opacity-20">
@@ -228,21 +231,21 @@ export default function ProjectForm() {
                       )}
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[9px] font-black uppercase text-zinc-700 ml-1">External Storage URL</label>
+                      <label className="text-[8px] font-bold uppercase text-zinc-700 ml-1">External Storage URL</label>
                       <input type="text" placeholder="https://..." value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} className="w-full p-4 border border-white/5 rounded-2xl bg-black/40 text-white focus:ring-2 focus:ring-white/20 outline-none transition-all placeholder:text-zinc-800 text-xs" />
                     </div>
                   </div>
                 </div>
 
                 <div className="space-y-6">
-                  <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">Global Hub Integration</h4>
+                  <h4 className="text-[9px] font-bold uppercase tracking-widest text-zinc-500">Global Hub Integration</h4>
                   <div className="grid grid-cols-1 gap-6">
                     <div className="space-y-2">
-                       <label className="text-[9px] font-black uppercase text-zinc-700 ml-1">Live Endpoint</label>
+                       <label className="text-[8px] font-bold uppercase text-zinc-700 ml-1">Live Endpoint</label>
                        <input type="text" placeholder="https://your-site.com" value={formData.link} onChange={e => setFormData({...formData, link: e.target.value})} className="w-full p-5 border border-white/5 rounded-2xl bg-black/40 text-white focus:ring-2 focus:ring-green-500/20 outline-none transition-all text-sm font-bold" />
                     </div>
                     <div className="space-y-2">
-                       <label className="text-[9px] font-black uppercase text-zinc-700 ml-1">Source Repository</label>
+                       <label className="text-[8px] font-bold uppercase text-zinc-700 ml-1">Source Repository</label>
                        <input type="text" placeholder="https://github.com/..." value={formData.github} onChange={e => setFormData({...formData, github: e.target.value})} className="w-full p-5 border border-white/5 rounded-2xl bg-black/40 text-white focus:ring-2 focus:ring-purple-500/20 outline-none transition-all text-sm font-bold" />
                     </div>
                   </div>
@@ -251,9 +254,9 @@ export default function ProjectForm() {
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="w-full py-7 bg-gradient-to-r from-blue-600 via-blue-700 to-purple-800 text-white rounded-[32px] font-black uppercase tracking-[0.3em] text-sm shadow-[0_30px_60px_rgba(59,130,246,0.3)] hover:shadow-[0_40px_80px_rgba(59,130,246,0.4)] transition-all hover:scale-[1.02] active:scale-[0.98] border-t border-white/20 disabled:opacity-50"
+                  className="w-full py-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl font-bold uppercase tracking-widest text-xs shadow-xl hover:shadow-blue-500/20 transition-all hover:scale-[1.01] active:scale-[0.99] border-t border-white/10 disabled:opacity-50"
                 >
-                  {loading ? 'Processing System...' : (id ? 'Sync Data Updates' : 'Initialize Portfolio Construct')}
+                  {loading ? 'Saving...' : (id ? 'Update Project' : 'Create Project')}
                 </button>
               </div>
             </div>

@@ -5,10 +5,11 @@ const skillCategories = [
   {
     title: "Frontend Development",
     skills: [
-      { name: "TypeScript", level: 90 },
+      { name: "TypeScript", level: 70 },
       { name: "Tailwind CSS", level: 92 },
-      { name: "Next.js", level: 88 },
-      { name: "Vue.js", level: 80 },
+      { name: "Next.js", level: 70 },
+      { name: "React.js", level: 80 },
+      { name: "JavaScript", level: 85 }
     ]
   },
   {
@@ -16,8 +17,10 @@ const skillCategories = [
     skills: [
       { name: "Python", level: 85 },
       { name: "PostgreSQL", level: 88 },
-      { name: "MongoDB", level: 86 },
+      { name: "MongoDB", level: 80 },
       { name: "GraphQL", level: 82 },
+      { name: "Node.js", level: 85 },
+      { name: "Express.js", level: 85 }
     ]
   },
   {
@@ -27,22 +30,24 @@ const skillCategories = [
       { name: "AWS", level: 80 },
       { name: "Figma", level: 88 },
       { name: "CI/CD", level: 82 },
+      { name: "Git", level: 85 },
+      { name: "GitHub", level: 85 }
     ]
   }
 ];
 
 const stats = [
-  { label: "Projects Completed", value: "50+" },
-  { label: "Years Experience", value: "5+" },
-  { label: "Happy Clients", value: "30+" },
-  { label: "Awards Won", value: "15+" },
+  { label: "Projects Completed", value: "10+" },
+  { label: "Years Experience", value: "2+" },
+  { label: "Happy Clients", value: "2+" },
+  { label: "Awards Won", value: "2+" },
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 bg-transparent dark:bg-transparent transition-colors duration-500">
+    <section id="skills" className="pt-16 pb-8 bg-transparent dark:bg-transparent transition-colors duration-500">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-        
+
         {/* SECTION HEADER - Matching Projects style */}
         <div className="text-center mb-16">
           <motion.div
@@ -62,7 +67,7 @@ export default function Skills() {
         </div>
 
         {/* SKILLS CATEGORIES GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-14">
           {skillCategories.map((category, catIndex) => (
             <motion.div
               key={catIndex}
@@ -75,7 +80,7 @@ export default function Skills() {
               <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-8 border-b border-zinc-100 dark:border-blue-900/30 pb-4">
                 {category.title}
               </h3>
-              
+
               <div className="space-y-8">
                 {category.skills.map((skill, index) => (
                   <div key={index} className="space-y-3">
@@ -104,7 +109,7 @@ export default function Skills() {
         </div>
 
         {/* STATS SECTION */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 py-12 border-t border-zinc-100 dark:border-blue-900/30">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 pt-10 pb-12 border-t border-zinc-100 dark:border-blue-900/30">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
