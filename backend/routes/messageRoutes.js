@@ -10,8 +10,14 @@ router.get("/", verifyToken, async (req, res) => {
   console.log("🔍 Fetching all messages...");
   try {
     const messages = await Message.findAll({ order: [['createdAt', 'DESC']] });
-    console.log(`✅ Found ${messages.length} messages`);
-    const mappedMessages = messages.map(m => ({ ...m.toJSON(), _id: m.id }));
+    console.log(`✅ Found ${messages.length} messages in database`);
+    
+    const mappedMessages = messages.map(m => {
+      const data = m.toJSON();
+      return { ...data, _id: data.id || m.id };
+    });
+    
+    console.log("📤 Sending messages to frontend:", mappedMessages.map(m => m.name).join(", "));
     res.json(mappedMessages);
   } catch (error) {
     console.error("❌ Error in GET /api/messages:", error);
@@ -35,14 +41,17 @@ router.post("/reply/:id", verifyToken, async (req, res) => {
       return res.status(404).json({ message: "Message not found" });
     }
 
-    // Configure Nodemailer transporter
+    // Configure Nodemailer transporter (SSL/TLS update)
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: 587,
-      secure: false, // true for 465, false for other ports
+      host: process.env.SMTP_HOST || "smtp.gmail.com",
+      port: 465, 
+      secure: true, 
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false, // Bypass self-signed certificate errors
       },
     });
 

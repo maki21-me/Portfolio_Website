@@ -77,36 +77,50 @@ app.post("/send-email", async (req, res) => {
   }
 
   try {
-    // 1. Save message to Database
+    // 1. ALWAYS Save message to Database first
     const newMessage = new Message({ name, email, message });
     await newMessage.save();
+    console.log(`💾 Message saved to database with ID: ${newMessage.id}`);
 
-    // 2. Send Email
+    // 2. Attempt to send Email (Non-blocking)
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: 587,
-      secure: false,
+      host: process.env.SMTP_HOST || "smtp.gmail.com",
+      port: 465, // Using 465 (SSL) for better reliability
+      secure: true,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      connectionTimeout: 10000, 
       tls: {
-        rejectUnauthorized: false,
+        rejectUnauthorized: false, // Bypass self-signed certificate errors
       },
     });
 
     const mailOptions = {
-      from: `"${name}" <${process.env.SMTP_USER}>`,
+      from: `"Portfolio Contact" <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_USER,
-      subject: `New contact from ${name}`,
-      text: `Message from ${name} <${email}>:\n\n${message}`,
+      subject: `📧 New Message from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     };
 
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ success: true, message: "Message sent and saved securely!" });
-  } catch (error) {
-    console.error("Error handling contact:", error);
-    res.status(500).json({ success: false, message: error.message || "Failed to process request" });
+    // We use a separate try-catch so email failure doesn't stop the DB success response
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log("📤 Email sent successfully");
+      res.status(200).json({ success: true, message: "Thank you! Your message has been sent and saved." });
+    } catch (mailError) {
+      console.error("⚠️ Email delivery failed (but message is saved):", mailError.message);
+      // Return success because it IS saved in our admin dashboard!
+      res.status(200).json({ 
+        success: true, 
+        message: "Message received! (Note: Email delivery had a hiccup, but I will see it in my dashboard)",
+        partialSuccess: true 
+      });
+    }
+  } catch (dbError) {
+    console.error("❌ Database Error handling contact:", dbError);
+    res.status(500).json({ success: false, message: "Failed to store your message. Please try again later." });
   }
 });
 

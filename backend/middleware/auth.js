@@ -8,8 +8,10 @@ const verifyToken = (req, res, next) => {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
+      console.error(`🛡️ JWT Verification Failed: ${err.message}`);
       return res.status(403).json({ success: false, message: "Invalid token" });
     }
+    console.log("🔓 JWT Verified successfully");
     req.adminId = decoded.id;
     next();
   });
