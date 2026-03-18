@@ -7,8 +7,11 @@ const fs = require("fs");
 const multer = require("multer");
 require("dotenv").config({ override: true }); // Force reload to fix stuck environment variables
 
+console.log("🛠️ DB_HOST:", process.env.DB_HOST);
+console.log("🛠️ DB_PORT:", process.env.DB_PORT);
+
 const app = express();
-const PORT = process.env.PORT || 5001; // Switched to 5001 to avoid conflicts
+const PORT = process.env.PORT || 10000; 
 
 // Middleware (Moved to top)
 app.use(cors());
@@ -25,13 +28,43 @@ app.get("/", (req, res) => {
   res.send("<h1>Portfolio Backend is Running on Port 5001 🚀</h1>");
 });
 
-// Connect to Database
-sequelize.sync({ alter: true }) // CRITICAL: This will add missing columns to your MySQL tables
-  .then(() => console.log(`✨ Database (${sequelize.getDialect().toUpperCase()}) Synced & Updated Successfully`))
-  .catch(err => {
-    console.error("❌ Database Sync Error!");
-    console.error("Error details:", err.message);
-  });
+// 🛠️ Database Initialization & Retry Logic
+const initializeDatabase = async (retries = 5, delay = 5000) => {
+  const mysql = require("mysql2/promise");
+  try {
+    const connection = await mysql.createConnection({
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT || 3306,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+    });
+
+    console.log(`📡 Connecting to MySQL at ${process.env.DB_HOST}:${process.env.DB_PORT}...`);
+    await connection.query(`CREATE DATABASE IF NOT EXISTS \`${process.env.DB_NAME}\`;`);
+    await connection.end();
+    console.log(`✅ Database "${process.env.DB_NAME}" initialized or already exists.`);
+
+    // Now Sync with Sequelize
+    await sequelize.sync({ alter: true });
+    console.log(`✨ Database (${sequelize.getDialect().toUpperCase()}) Synced & Updated Successfully`);
+    
+    return true;
+  } catch (err) {
+    if (retries > 0) {
+      console.warn(`⚠️ Database connection failed. Retrying in ${delay/1000}s... (${retries} retries left)`);
+      console.error(`Error: ${err.message}`);
+      await new Promise(res => setTimeout(res, delay));
+      return initializeDatabase(retries - 1, delay);
+    } else {
+      console.error("❌ Failed to connect to Database after several attempts.");
+      console.error("Error details:", err.message);
+      // We don't crash the server immediately, but it won't function correctly.
+      return false;
+    }
+  }
+};
+
+initializeDatabase();
 
 // Import Routes
 const authRoutes = require("./routes/authRoutes");
