@@ -26,7 +26,7 @@ export default function ProjectForm() {
       const fetchProject = async () => {
         setFetching(true);
         try {
-          const res = await fetch(`http://localhost:5001/api/projects/${id}`, {
+          const res = await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           const project = await res.json();
@@ -65,7 +65,7 @@ export default function ProjectForm() {
       const uploadData = new FormData();
       uploadData.append("image", imageFile);
       try {
-        const uploadRes = await fetch("http://localhost:5001/api/upload", {
+        const uploadRes = await fetch(`${import.meta.env.VITE_API_URL}/upload`, {
           method: "POST",
           headers: { 'Authorization': `Bearer ${token}` },
           body: uploadData
@@ -91,13 +91,13 @@ export default function ProjectForm() {
     try {
       if (id) {
         // Since the current backend logic involves delete/re-post or similar, we follow the pattern in ProjectsManager
-        await fetch(`http://localhost:5001/api/projects/${id}`, {
+        await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
       }
       
-      await fetch('http://localhost:5001/api/projects', {
+      await fetch(`${import.meta.env.VITE_API_URL}/projects`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

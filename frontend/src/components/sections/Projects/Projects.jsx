@@ -12,7 +12,7 @@ export default function Projects() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch("http://localhost:5001/api/projects");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/projects`);
         const data = await res.json();
         if (Array.isArray(data)) {
           // Filter to only show featured projects on the home page

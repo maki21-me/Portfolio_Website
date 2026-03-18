@@ -9,7 +9,7 @@ export default function ProjectsManager() {
   const fetchProjects = async () => {
     const token = localStorage.getItem('adminToken');
     try {
-      const res = await fetch('http://localhost:5001/api/projects', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/projects`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -29,7 +29,7 @@ export default function ProjectsManager() {
     if(!window.confirm('Are you sure you want to delete this project?')) return;
     const token = localStorage.getItem('adminToken');
     try {
-      await fetch(`http://localhost:5001/api/projects/${id}`, { 
+      await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`, { 
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

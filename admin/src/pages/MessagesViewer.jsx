@@ -13,7 +13,7 @@ export default function MessagesViewer() {
     setLoading(true);
     const token = localStorage.getItem('adminToken');
     try {
-      const res = await fetch('http://localhost:5001/api/messages', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/messages`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -35,7 +35,7 @@ export default function MessagesViewer() {
     if(!window.confirm('Are you sure you want to delete this message?')) return;
     const token = localStorage.getItem('adminToken');
     try {
-      await fetch(`http://localhost:5001/api/messages/${id}`, { 
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/messages/${id}`, { 
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -52,7 +52,7 @@ export default function MessagesViewer() {
     setSending(true);
     const token = localStorage.getItem('adminToken');
     try {
-      const res = await fetch(`http://localhost:5001/api/messages/reply/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/messages/reply/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

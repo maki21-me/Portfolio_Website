@@ -11,10 +11,10 @@ export default function Dashboard() {
       const token = localStorage.getItem('adminToken');
       try {
         const [projRes, msgRes] = await Promise.all([
-          fetch('http://localhost:5001/api/projects', {
+          fetch(`${import.meta.env.VITE_API_URL}/projects`, {
             headers: { 'Authorization': `Bearer ${token}` }
           }),
-          fetch('http://localhost:5001/api/messages', {
+          fetch(`${import.meta.env.VITE_API_URL}/messages`, {
             headers: { 'Authorization': `Bearer ${token}` }
           })
         ]);
