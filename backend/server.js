@@ -1,3 +1,4 @@
+require("dotenv").config({ override: true }); // Force reload to fix stuck environment variables
 const express = require("express");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
@@ -5,10 +6,11 @@ const sequelize = require("./config/database");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
-require("dotenv").config({ override: true }); // Force reload to fix stuck environment variables
 
 console.log("🛠️ DB_HOST:", process.env.DB_HOST);
 console.log("🛠️ DB_PORT:", process.env.DB_PORT);
+console.log("🛠️ DB_USER:", process.env.DB_USER);
+console.log("🛠️ DB_NAME:", process.env.DB_NAME);
 
 const app = express();
 const PORT = process.env.PORT || 10000; 
@@ -34,7 +36,7 @@ const initializeDatabase = async (retries = 5, delay = 5000) => {
   try {
     const connection = await mysql.createConnection({
       host: process.env.DB_HOST,
-      port: process.env.DB_PORT || 3306,
+      port: process.env.DB_PORT,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
     });
