@@ -64,7 +64,7 @@ export default function AdminLayout() {
           <div className="my-4 border-t border-white/5" />
 
           <a
-            href="http://localhost:5173"
+            href={import.meta.env.VITE_SITE_URL || "http://localhost:5174"}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-zinc-500 hover:text-white hover:bg-white/5 transition-all duration-200"
