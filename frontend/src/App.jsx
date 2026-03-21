@@ -12,7 +12,7 @@ import Footer from "./components/layout/Footer/Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Contact from "./components/sections/Contact/Contact";
-import ProjectsPage from "./pages/ProjectsPage/ProjectsPage";
+import ProjectsPage from "./Pages/ProjectsPage/ProjectsPage";
 import FloatingBackground from "./components/layout/FloatingBackground";
 
 function ScrollToTop() {
