@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+
 require("dotenv").config();
 
 // Admin Login
@@ -21,13 +22,13 @@ router.post("/login", async (req, res) => {
 
     // Use a more robust check - trim just in case
     const isValid = bcrypt.compareSync(password.trim(), adminPasswordHash.trim());
-    
+
     if (username.trim() === "admin" && isValid) {
       const token = jwt.sign({ id: "admin" }, process.env.JWT_SECRET, { expiresIn: "24h" });
       console.log("✅ Login successful");
       return res.json({ success: true, token });
     }
-    
+
     console.warn("❌ Invalid credentials for user:", username);
     res.status(401).json({ success: false, message: "Invalid username or password" });
   } catch (err) {
