@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiFolder, FiMessageSquare, FiTrendingUp, FiActivity, FiArrowRight } from 'react-icons/fi';
+import { getApiUrl } from '../utils/api';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -11,10 +12,10 @@ export default function Dashboard() {
       const token = localStorage.getItem('adminToken');
       try {
         const [projRes, msgRes] = await Promise.all([
-          fetch(`${import.meta.env.VITE_API_URL}/projects`, {
+          fetch(getApiUrl('/projects'), {
             headers: { 'Authorization': `Bearer ${token}` }
           }),
-          fetch(`${import.meta.env.VITE_API_URL}/messages`, {
+          fetch(getApiUrl('/messages'), {
             headers: { 'Authorization': `Bearer ${token}` }
           })
         ]);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiPlus, FiEdit2, FiTrash2, FiFolder } from 'react-icons/fi';
+import { getApiUrl } from '../utils/api';
 
 export default function ProjectsManager() {
   const [projects, setProjects] = useState([]);
@@ -9,7 +10,7 @@ export default function ProjectsManager() {
   const fetchProjects = async () => {
     const token = localStorage.getItem('adminToken');
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/projects`, {
+      const res = await fetch(getApiUrl('/projects'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -29,7 +30,7 @@ export default function ProjectsManager() {
     if(!window.confirm('Are you sure you want to delete this project?')) return;
     const token = localStorage.getItem('adminToken');
     try {
-      await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`, { 
+      await fetch(getApiUrl(`/projects/${id}`), { 
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

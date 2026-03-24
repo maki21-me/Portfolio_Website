@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { FiArrowLeft, FiPlus, FiSave, FiCheck, FiX } from 'react-icons/fi';
+import { getApiUrl } from '../utils/api';
 
 export default function ProjectForm() {
   const { id } = useParams();
@@ -26,7 +27,7 @@ export default function ProjectForm() {
       const fetchProject = async () => {
         setFetching(true);
         try {
-          const res = await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`, {
+          const res = await fetch(getApiUrl(`/projects/${id}`), {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           const project = await res.json();
@@ -65,7 +66,7 @@ export default function ProjectForm() {
       const uploadData = new FormData();
       uploadData.append("image", imageFile);
       try {
-        const uploadRes = await fetch(`${import.meta.env.VITE_API_URL}/upload`, {
+        const uploadRes = await fetch(getApiUrl('/upload'), {
           method: "POST",
           headers: { 'Authorization': `Bearer ${token}` },
           body: uploadData
@@ -91,13 +92,13 @@ export default function ProjectForm() {
     try {
       if (id) {
         // Since the current backend logic involves delete/re-post or similar, we follow the pattern in ProjectsManager
-        await fetch(`${import.meta.env.VITE_API_URL}/projects/${id}`, {
+        await fetch(getApiUrl(`/projects/${id}`), {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
       }
       
-      await fetch(`${import.meta.env.VITE_API_URL}/projects`, {
+      await fetch(getApiUrl('/projects'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

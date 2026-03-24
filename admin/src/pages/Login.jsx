@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiLock, FiUser, FiArrowRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import { getApiUrl } from '../utils/api';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -13,7 +14,10 @@ export default function Login() {
     setError('');
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+      const loginUrl = getApiUrl('/login');
+      console.log('📡 Attempting login to:', loginUrl);
+      
+      const response = await fetch(loginUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })

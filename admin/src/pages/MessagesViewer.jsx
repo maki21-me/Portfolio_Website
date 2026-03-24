@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FiTrash2, FiMail, FiSend, FiCheckCircle, FiRotateCw, FiMessageSquare, FiCalendar, FiArrowRight, FiActivity } from 'react-icons/fi';
+import { getApiUrl } from '../utils/api';
 
 export default function MessagesViewer() {
   const [messages, setMessages] = useState([]);
@@ -13,7 +14,7 @@ export default function MessagesViewer() {
     setLoading(true);
     const token = localStorage.getItem('adminToken');
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/messages`, {
+      const res = await fetch(getApiUrl('/messages'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -35,7 +36,7 @@ export default function MessagesViewer() {
     if(!window.confirm('Are you sure you want to delete this message?')) return;
     const token = localStorage.getItem('adminToken');
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/messages/${id}`, { 
+      const res = await fetch(getApiUrl(`/messages/${id}`), { 
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -52,7 +53,7 @@ export default function MessagesViewer() {
     setSending(true);
     const token = localStorage.getItem('adminToken');
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/messages/reply/${id}`, {
+      const res = await fetch(getApiUrl(`/messages/reply/${id}`), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
