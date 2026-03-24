@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { getApiUrl } from "../../../utils/api";
 
 // We can keep placeholder image references if the db imageUrl is empty, or just rely on db.
 import portfolio from "../../../assets/Images/ProjectImage/portfolio.png";
@@ -12,7 +13,7 @@ export default function Projects() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/projects`);
+        const res = await fetch(getApiUrl('/projects'));
         const data = await res.json();
         if (Array.isArray(data)) {
           // Filter to only show featured projects on the home page

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSearch, FiFilter, FiExternalLink, FiGithub } from "react-icons/fi";
+import { getApiUrl } from "../../utils/api";
 
 // Fallback Image
 import portfolioImg from "../../assets/Images/ProjectImage/portfolio.png";
@@ -14,7 +15,7 @@ export default function ProjectsPage() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/projects`);
+        const res = await fetch(getApiUrl('/projects'));
         const data = await res.json();
         setProjects(data);
       } catch (err) {

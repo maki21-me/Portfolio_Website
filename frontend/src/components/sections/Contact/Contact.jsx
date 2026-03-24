@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FiMail, FiPhone, FiMapPin, FiSend } from "react-icons/fi";
+import { getApiUrl } from "../../../utils/api";
 
 export default function Contact() {
   const form = useRef();
@@ -18,7 +19,12 @@ export default function Contact() {
     };
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL.replace("/api", "")}/send-email`, {
+      // Use getApiUrl and then adjust for non-nested /send-email endpoint if needed
+      // Our getApiUrl adds /api, but the contact route is app.post("/send-email", ...) in server.js (line 105)
+      // So we need to hit the root level /send-email
+      const apiUrl = getApiUrl('/send-email').replace('/api/send-email', '/send-email');
+      
+      const res = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
