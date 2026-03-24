@@ -3,7 +3,10 @@
  * Ensures VITE_API_URL always ends with /api and handles trailing slashes.
  */
 export const getApiUrl = (endpoint = '') => {
-  let baseUrl = import.meta.env.VITE_API_URL || "";
+  // 🚀 HARDCODED PRODUCTION FALLBACK: ensures it works even if Netlify env vars are missing
+  const PRODUCTION_BACKEND = "https://portfolio-backend-jrle.onrender.com/api";
+  
+  let baseUrl = import.meta.env.VITE_API_URL || PRODUCTION_BACKEND;
   
   // Remove trailing slashes if any
   baseUrl = baseUrl.replace(/\/+$/, "");
