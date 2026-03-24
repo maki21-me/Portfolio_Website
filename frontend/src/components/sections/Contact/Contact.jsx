@@ -19,12 +19,8 @@ export default function Contact() {
     };
 
     try {
-      // Use getApiUrl and then adjust for non-nested /send-email endpoint if needed
-      // Our getApiUrl adds /api, but the contact route is app.post("/send-email", ...) in server.js (line 105)
-      // So we need to hit the root level /send-email
-      const apiUrl = getApiUrl('/send-email').replace('/api/send-email', '/send-email');
-      
-      const res = await fetch(apiUrl, {
+      // 🛡️ Normalized API route using our self-healing utility
+      const res = await fetch(getApiUrl('/contact'), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)

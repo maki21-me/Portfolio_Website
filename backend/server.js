@@ -96,13 +96,18 @@ const upload = multer({ storage });
 
 app.post("/api/upload", verifyToken, upload.single("image"), (req, res) => {
   if (!req.file) return res.status(400).json({ success: false, message: "No file uploaded" });
-  const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+  
+  // 🛡️ Force HTTPS in production to prevent Mixed Content warnings
+  const host = req.get("host");
+  const protocol = host.includes("localhost") ? "http" : "https";
+  const imageUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
+  
   res.json({ success: true, imageUrl });
 });
 
-// Contact Route
+// Contact Route (Moved to /api/contact for consistency)
 const Message = require("./models/Message");
-app.post("/send-email", async (req, res) => {
+app.post("/api/contact", async (req, res) => {
   const { name, email, message } = req.body;
 
   // Validate email format

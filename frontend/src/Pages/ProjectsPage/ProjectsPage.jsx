@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiSearch, FiFilter, FiExternalLink, FiGithub } from "react-icons/fi";
 import { getApiUrl } from "../../utils/api";
 
+import { normalizeImageUrl } from "../../utils/imageUtils";
+
 // Fallback Image
 import portfolioImg from "../../assets/Images/ProjectImage/portfolio.png";
 
@@ -109,7 +111,7 @@ export default function ProjectsPage() {
               {/* Image Box */}
               <div className="relative h-72 overflow-hidden">
                 <img
-                  src={project.imageUrl || portfolioImg}
+                  src={normalizeImageUrl(project.imageUrl) || portfolioImg}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />

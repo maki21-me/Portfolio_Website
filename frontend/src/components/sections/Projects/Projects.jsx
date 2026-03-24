@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { getApiUrl } from "../../../utils/api";
+import { normalizeImageUrl } from "../../../utils/imageUtils";
 
 // We can keep placeholder image references if the db imageUrl is empty, or just rely on db.
 import portfolio from "../../../assets/Images/ProjectImage/portfolio.png";
@@ -64,7 +65,7 @@ export default function Projects() {
               {/* Image Container - High-impact height */}
               <div className="relative h-56 overflow-hidden bg-gray-100 dark:bg-zinc-800">
                 <img 
-                  src={project.imageUrl || portfolio} 
+                  src={normalizeImageUrl(project.imageUrl) || portfolio} 
                   alt={project.title} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
