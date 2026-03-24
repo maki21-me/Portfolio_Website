@@ -105,10 +105,11 @@ app.post("/api/upload", verifyToken, upload.single("image"), (req, res) => {
   res.json({ success: true, imageUrl });
 });
 
-// Contact Route (Moved to /api/contact for consistency)
+// --- Contact Form Handler (Shared between routes) ---
 const Message = require("./models/Message");
-app.post("/api/contact", async (req, res) => {
+const handleContactRequest = async (req, res) => {
   const { name, email, message } = req.body;
+  console.log(`📩 Contact request received from: ${email} (${name})`);
 
   // Validate email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -122,19 +123,17 @@ app.post("/api/contact", async (req, res) => {
     await newMessage.save();
     console.log(`💾 Message saved to database with ID: ${newMessage.id}`);
 
-    // 2. Attempt to send Email (Non-blocking)
+    // 2. Transporter Configuration
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST || "smtp.gmail.com",
-      port: 465, // Using 465 (SSL) for better reliability
+      port: 465,
       secure: true,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
       connectionTimeout: 10000, 
-      tls: {
-        rejectUnauthorized: false, // Bypass self-signed certificate errors
-      },
+      tls: { rejectUnauthorized: false },
     });
 
     const mailOptions = {
@@ -144,17 +143,15 @@ app.post("/api/contact", async (req, res) => {
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     };
 
-    // We use a separate try-catch so email failure doesn't stop the DB success response
     try {
       await transporter.sendMail(mailOptions);
       console.log("📤 Email sent successfully");
       res.status(200).json({ success: true, message: "Thank you! Your message has been sent and saved." });
     } catch (mailError) {
       console.error("⚠️ Email delivery failed (but message is saved):", mailError.message);
-      // Return success because it IS saved in our admin dashboard!
       res.status(200).json({ 
         success: true, 
-        message: "Message received! (Note: Email delivery had a hiccup, but I will see it in my dashboard)",
+        message: "Message received! (Note: Email delivery failed, but I will see it in my dashboard)",
         partialSuccess: true 
       });
     }
@@ -162,7 +159,11 @@ app.post("/api/contact", async (req, res) => {
     console.error("❌ Database Error handling contact:", dbError);
     res.status(500).json({ success: false, message: "Failed to store your message. Please try again later." });
   }
-});
+};
+
+// 🛠️ Dual Route Support: Handles both legacy and new standardized endpoints
+app.post("/api/contact", handleContactRequest);
+app.post("/send-email", handleContactRequest);
 
 // Global 404 Handler (JSON)
 app.use((req, res) => {
