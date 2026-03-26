@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiPlus, FiEdit2, FiTrash2, FiFolder } from 'react-icons/fi';
 import { getApiUrl } from '../utils/api';
+import { normalizeImageUrl } from '../utils/imageUtils';
 
 export default function ProjectsManager() {
   const [projects, setProjects] = useState([]);
@@ -102,7 +103,7 @@ export default function ProjectsManager() {
                       <div className="flex items-center gap-6">
                         <div className="relative shrink-0">
                           {project.imageUrl ? (
-                            <img src={project.imageUrl} alt="" className="w-20 h-20 rounded-3xl object-cover border border-white/10 shadow-2xl transition-transform group-hover:scale-105" />
+                            <img src={normalizeImageUrl(project.imageUrl)} alt="" className="w-20 h-20 rounded-3xl object-cover border border-white/10 shadow-2xl transition-transform group-hover:scale-105" />
                           ) : (
                             <div className="w-20 h-20 rounded-3xl bg-zinc-900 border border-white/5 flex items-center justify-center text-zinc-800 font-black italic text-[10px]">No Asset</div>
                           )}

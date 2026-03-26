@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { FiArrowLeft, FiPlus, FiSave, FiCheck, FiX } from 'react-icons/fi';
 import { getApiUrl } from '../utils/api';
+import { normalizeImageUrl } from '../utils/imageUtils';
 
 export default function ProjectForm() {
   const { id } = useParams();
@@ -227,7 +228,7 @@ export default function ProjectForm() {
                       </div>
                       {(imageFile || formData.imageUrl) && (
                         <div className="absolute inset-0 pointer-events-none opacity-20">
-                           <img src={imageFile ? URL.createObjectURL(imageFile) : formData.imageUrl} alt="" className="w-full h-full object-cover" />
+                           <img src={imageFile ? URL.createObjectURL(imageFile) : normalizeImageUrl(formData.imageUrl)} alt="" className="w-full h-full object-cover" />
                         </div>
                       )}
                     </div>
