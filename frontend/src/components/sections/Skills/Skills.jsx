@@ -18,7 +18,6 @@ const skillCategories = [
       { name: "Python", level: 85 },
       { name: "PostgreSQL", level: 88 },
       { name: "MongoDB", level: 80 },
-      { name: "GraphQL", level: 82 },
       { name: "Node.js", level: 85 },
       { name: "Express.js", level: 85 }
     ]
@@ -29,7 +28,6 @@ const skillCategories = [
       { name: "Docker", level: 85 },
       { name: "AWS", level: 80 },
       { name: "Figma", level: 88 },
-      { name: "CI/CD", level: 82 },
       { name: "Git", level: 85 },
       { name: "GitHub", level: 85 }
     ]
@@ -38,9 +36,8 @@ const skillCategories = [
 
 const stats = [
   { label: "Projects Completed", value: "10+" },
-  { label: "Years Experience", value: "2+" },
-  { label: "Happy Clients", value: "2+" },
-  { label: "Awards Won", value: "2+" },
+  { label: "Years Experience", value: "1+" },
+  { label: "Happy Clients", value: "1+" },
 ];
 
 export default function Skills() {

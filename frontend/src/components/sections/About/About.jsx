@@ -71,7 +71,7 @@ export default function About() {
                 <div className="w-20 h-1.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full" />
               </div>
               <p className="text-lg text-zinc-600 dark:text-zinc-300 mb-6 leading-relaxed">
-                I'm a full-stack developer and designer with over 2 years of experience building web applications.
+                I'm a full-stack developer and designer with over 1+ year of experience building web applications.
                 I love turning complex problems into simple, beautiful, and intuitive designs.
               </p>
               <p className="text-lg text-zinc-600 dark:text-zinc-300 mb-10 leading-relaxed font-light">
