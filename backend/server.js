@@ -87,22 +87,33 @@ if (!fs.existsSync(uploadDir)) {
 }
 app.use("/uploads", express.static(uploadDir));
 
-// Protected Upload Route
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname)
+// Cloudinary Configuration
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "portfolio_projects",
+    allowed_formats: ["jpg", "png", "jpeg", "webp"],
+    transformation: [{ width: 1200, height: 800, crop: "limit" }]
+  }
+});
+
 const upload = multer({ storage });
 
 app.post("/api/upload", verifyToken, upload.single("image"), (req, res) => {
   if (!req.file) return res.status(400).json({ success: false, message: "No file uploaded" });
   
-  // 🛡️ Force HTTPS in production to prevent Mixed Content warnings
-  const host = req.get("host");
-  const protocol = host.includes("localhost") ? "http" : "https";
-  const imageUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
-  
-  res.json({ success: true, imageUrl });
+  // 🛡️ Cloudinary provides permanent HTTPS URLs
+  console.log(`✅ File uploaded to Cloudinary: ${req.file.path}`);
+  res.json({ success: true, imageUrl: req.file.path });
 });
 
 // --- Contact Form Handler (Shared between routes) ---
